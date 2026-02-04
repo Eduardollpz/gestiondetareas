@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .app {
+            background: #ffffff;
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        li.completed span {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .actions button {
+            margin-left: 5px;
+            background-color: #dc3545;
+        }
+
+        .actions button.complete {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app">
+    <h1>Lista de Tareas</h1>
+
+    <div class="input-container">
+        <input type="text" id="taskInput" placeholder="Nueva tarea">
+        <button onclick="addTask()">Agregar</button>
+    </div>
+
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    function addTask() {
+        const input = document.getElementById("taskInput");
+        const taskText = input.value.trim();
+
+        if (taskText === "") {
+            alert("Por favor, ingrese una tarea.");
+            return;
+        }
+
+        const li = document.createElement("li");
+        const span = document.createElement("span");
+        span.textContent = taskText;
+
+        const actions = document.createElement("div");
+        actions.classList.add("actions");
+
+        const completeBtn = document.createElement("button");
+        completeBtn.textContent = "✔";
+        completeBtn.classList.add("complete");
+        completeBtn.onclick = () => li.classList.toggle("completed");
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "✖";
+        deleteBtn.onclick = () => li.remove();
+
+        actions.appendChild(completeBtn);
+        actions.appendChild(deleteBtn);
+
+        li.appendChild(span);
+        li.appendChild(actions);
+
+        document.getElementById("taskList").appendChild(li);
+        input.value = "";
+    }
+</script>
+
+</body>
+</html>
